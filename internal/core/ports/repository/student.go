@@ -10,4 +10,5 @@ import (
 type StudentRepositoryInterface interface {
 	Create(ctx context.Context, request domain.Student) (domain.Student, error)
 	GetByID(ctx context.Context, request int64) (domain.Student, error)
+	Update(ctx context.Context, request domain.Student) error
 }
