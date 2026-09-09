@@ -2,7 +2,9 @@ package booking
 
 import (
 	"context"
+	"crypto/rand"
 	"errors"
+	"math/big"
 	"time"
 
 	log "github.com/oemahdev/logger"
@@ -88,6 +90,7 @@ func (s *bookingService) BookClass(ctx context.Context, request domain.BookClass
 			StudentID:      request.StudentID,
 			IdempotencyKey: request.IdempotencyKey,
 			Status:         domain.BookingStatusPending,
+			PaymentCode:    s.generatePaymentCode(),
 			HoldExpiredAt:  time.Now().UTC().Add(5 * time.Minute),
 		}
 
@@ -116,4 +119,14 @@ func (s *bookingService) BookClass(ctx context.Context, request domain.BookClass
 	}
 
 	return booking, nil
+}
+
+func (s *bookingService) generatePaymentCode() string {
+	const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	code := make([]byte, 6)
+	for i := range code {
+		n, _ := rand.Int(rand.Reader, big.NewInt(int64(len(charset))))
+		code[i] = charset[n.Int64()]
+	}
+	return string(code)
 }

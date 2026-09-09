@@ -56,6 +56,21 @@ func (mr *MockBookingRepositoryInterfaceMockRecorder) Create(ctx, request any) *
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockBookingRepositoryInterface)(nil).Create), ctx, request)
 }
 
+// GetByPaymentCode mocks base method.
+func (m *MockBookingRepositoryInterface) GetByPaymentCode(ctx context.Context, paymentCode string) (domain.Booking, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetByPaymentCode", ctx, paymentCode)
+	ret0, _ := ret[0].(domain.Booking)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetByPaymentCode indicates an expected call of GetByPaymentCode.
+func (mr *MockBookingRepositoryInterfaceMockRecorder) GetByPaymentCode(ctx, paymentCode any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByPaymentCode", reflect.TypeOf((*MockBookingRepositoryInterface)(nil).GetByPaymentCode), ctx, paymentCode)
+}
+
 // GetByStudentID mocks base method.
 func (m *MockBookingRepositoryInterface) GetByStudentID(ctx context.Context, studentID int64) ([]domain.Booking, error) {
 	m.ctrl.T.Helper()

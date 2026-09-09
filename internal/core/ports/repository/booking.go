@@ -11,4 +11,5 @@ type BookingRepositoryInterface interface {
 	Create(ctx context.Context, request domain.Booking) (domain.Booking, error)
 	Update(ctx context.Context, request domain.Booking) error
 	GetByStudentID(ctx context.Context, studentID int64) ([]domain.Booking, error)
+	GetByPaymentCode(ctx context.Context, paymentCode string) (domain.Booking, error)
 }
