@@ -1,0 +1,2 @@
+# AI
+In this project I'm using 2 AI tools, Claude Code and Google Antigravity. Why I'm using two tools is because Claude Code give better result on thinking when I need discuss about the architectural decisions, while Google Antigravity on generating codes. 
