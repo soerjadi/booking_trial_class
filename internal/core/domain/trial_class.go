@@ -1,5 +1,7 @@
 package domain
 
+const CLASS_QUOTA int64 = 4
+
 type TrialClass struct {
 	ID             int64  `json:"id"`
 	Name           string `json:"name"`

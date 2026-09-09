@@ -31,8 +31,8 @@ func (h *Handler) Create(w http.ResponseWriter, r *http.Request) {
 
 	trialClass, err := h.svc.Create(r.Context(), domain.TrialClass{
 		Name:           request.Name,
-		Quota:          request.Quota,
-		AvailableSlots: request.Quota, // Initially, all slots are available
+		Quota:          domain.CLASS_QUOTA,
+		AvailableSlots: domain.CLASS_QUOTA,
 	})
 	if err != nil {
 		rest.WriteJSON(w, http.StatusInternalServerError, rest.ErrorResponse{Message: err.Error()})
