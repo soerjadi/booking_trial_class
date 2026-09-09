@@ -23,7 +23,7 @@ type Booking struct {
 }
 
 type BookClassRequest struct {
-	TrialClassID   int64
-	StudentID      int64
+	TrialClassID   int64 `json:"trial_class_id"`
+	StudentID      int64 `json:"student_id"`
 	IdempotencyKey string
 }
