@@ -9,11 +9,18 @@ import (
 	"syscall"
 	"time"
 
+	log "github.com/oemahdev/logger"
 	"github.com/soerjadi/booking/internal/app"
 )
 
 func main() {
 	a := app.New()
+
+	log.Init(log.LogConfig{
+		Level:    "DEBUG",
+		FilePath: "./logs",
+	})
+	log.Info("Logger initialized successfully")
 
 	srv := &http.Server{
 		Addr:         fmt.Sprintf(":%s", a.Port()),
