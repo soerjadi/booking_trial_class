@@ -55,7 +55,7 @@ Database : PostgreSQL
     Get list bookings base on student_id
 - [x] POST /v1/booking.  
     Create booking class
-- [ ] POST /v1/payment/settlement.  
+- [x] POST /v1/payment/settlement.  
     Confirm payment
 
 

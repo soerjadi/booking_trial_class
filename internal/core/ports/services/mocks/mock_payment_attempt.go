@@ -56,6 +56,20 @@ func (mr *MockPaymentAttemptServiceInterfaceMockRecorder) Create(ctx, request an
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockPaymentAttemptServiceInterface)(nil).Create), ctx, request)
 }
 
+// Settlement mocks base method.
+func (m *MockPaymentAttemptServiceInterface) Settlement(ctx context.Context, paymentCode string) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Settlement", ctx, paymentCode)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// Settlement indicates an expected call of Settlement.
+func (mr *MockPaymentAttemptServiceInterfaceMockRecorder) Settlement(ctx, paymentCode any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Settlement", reflect.TypeOf((*MockPaymentAttemptServiceInterface)(nil).Settlement), ctx, paymentCode)
+}
+
 // Update mocks base method.
 func (m *MockPaymentAttemptServiceInterface) Update(ctx context.Context, request domain.PaymentAttempt) error {
 	m.ctrl.T.Helper()

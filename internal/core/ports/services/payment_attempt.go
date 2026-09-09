@@ -10,4 +10,5 @@ import (
 type PaymentAttemptServiceInterface interface {
 	Create(ctx context.Context, request domain.PaymentAttempt) (domain.PaymentAttempt, error)
 	Update(ctx context.Context, request domain.PaymentAttempt) error
+	Settlement(ctx context.Context, paymentCode string) error
 }
