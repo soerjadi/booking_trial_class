@@ -30,7 +30,7 @@ func TestBookingService_BookClass(t *testing.T) {
 		mockClassRepo.EXPECT().GetMember(gomock.Any(), req.TrialClassID).Return(members, nil)
 
 		// Inside db.Do transaction
-		mockClassRepo.EXPECT().Update(ctx, gomock.Any()).DoAndReturn(func(ctx context.Context, tc domain.TrialClass) error {
+		mockClassRepo.EXPECT().UpdateAvailableSlots(ctx, gomock.Any()).DoAndReturn(func(ctx context.Context, tc domain.TrialClass) error {
 			assert.Equal(t, int64(4), tc.AvailableSlots)
 			return nil
 		})
@@ -65,6 +65,24 @@ func TestBookingService_BookClass(t *testing.T) {
 
 		_, err := service.BookClass(ctx, req)
 		assert.EqualError(t, err, "trial class is full")
+	})
+
+	t.Run("lost race for last seat", func(t *testing.T) {
+		trialClass := domain.TrialClass{ID: 1, AvailableSlots: 1}
+		student := domain.Student{ID: 1}
+		members := []domain.TrialClassMember{}
+
+		mockClassRepo.EXPECT().GetByID(gomock.Any(), req.TrialClassID).Return(trialClass, nil)
+		mockStudentRepo.EXPECT().GetByID(gomock.Any(), req.StudentID).Return(student, nil)
+		mockClassRepo.EXPECT().GetMember(gomock.Any(), req.TrialClassID).Return(members, nil)
+
+		// another concurrent request claimed the last seat first, so the
+		// conditional update affects zero rows
+		raceErr := errors.New("no available slots")
+		mockClassRepo.EXPECT().UpdateAvailableSlots(ctx, gomock.Any()).Return(raceErr)
+
+		_, err := service.BookClass(ctx, req)
+		assert.ErrorIs(t, err, raceErr)
 	})
 
 	t.Run("student already registered", func(t *testing.T) {

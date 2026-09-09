@@ -113,3 +113,17 @@ func (mr *MockTrialClassRepositoryInterfaceMockRecorder) Update(ctx, request any
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Update", reflect.TypeOf((*MockTrialClassRepositoryInterface)(nil).Update), ctx, request)
 }
+
+// UpdateAvailableSlots mocks base method.
+func (m *MockTrialClassRepositoryInterface) UpdateAvailableSlots(ctx context.Context, request domain.TrialClass) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateAvailableSlots", ctx, request)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// UpdateAvailableSlots indicates an expected call of UpdateAvailableSlots.
+func (mr *MockTrialClassRepositoryInterfaceMockRecorder) UpdateAvailableSlots(ctx, request any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateAvailableSlots", reflect.TypeOf((*MockTrialClassRepositoryInterface)(nil).UpdateAvailableSlots), ctx, request)
+}

@@ -74,11 +74,9 @@ func (s *bookingService) BookClass(ctx context.Context, request domain.BookClass
 		// do update class to reduce available slot - 1
 		updateClassReq := domain.TrialClass{
 			ID:             trialClass.ID,
-			Name:           trialClass.Name,
-			Quota:          trialClass.Quota,
 			AvailableSlots: trialClass.AvailableSlots - 1,
 		}
-		err := s.repoClass.Update(ctx, updateClassReq)
+		err := s.repoClass.UpdateAvailableSlots(ctx, updateClassReq)
 		if err != nil {
 			log.ErrorCtx(ctx, "[service.booking.BookClass.Update] failed update trial class", log.Field("request", updateClassReq), log.Field("error", err))
 			return err
