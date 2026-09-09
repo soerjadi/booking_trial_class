@@ -2,14 +2,14 @@ package router
 
 import (
 	"github.com/gorilla/mux"
-	restuser "github.com/soerjadi/booking/internal/adapters/primary/rest/user"
+	restparent "github.com/soerjadi/booking/internal/adapters/primary/rest/parent"
 )
 
 type Config struct {
-	UserHandler *restuser.Handler
+	ParentHandler *restparent.Handler
 }
 
 func RegisterRoutes(r *mux.Router, cfg Config) {
 	v1 := r.PathPrefix("/v1").Subrouter()
-	cfg.UserHandler.Mount(v1)
+	cfg.ParentHandler.Mount(v1)
 }
