@@ -54,13 +54,19 @@ func TestPaymentAttemptService_Settlement(t *testing.T) {
 	t.Run("expired hold", func(t *testing.T) {
 		booking := domain.Booking{ID: 1, TrialClassID: 1, Status: domain.BookingStatusPending, HoldExpiredAt: time.Now().Add(-1 * time.Hour)}
 		trialClass := domain.TrialClass{ID: 1, AvailableSlots: 5}
+		paymentAttempt := domain.PaymentAttempt{ID: 1, BookingID: 1, Status: domain.PaymentAttemptStatusPending}
 
 		mockBookingRepo.EXPECT().GetByPaymentCode(ctx, paymentCode).Return(booking, nil)
 		mockClassRepo.EXPECT().GetByID(ctx, booking.TrialClassID).Return(trialClass, nil)
+		mockRepo.EXPECT().GetByBookingID(ctx, booking.ID).Return(paymentAttempt, nil)
 
 		// Rollback logic
 		mockClassRepo.EXPECT().Update(ctx, gomock.Any()).DoAndReturn(func(ctx context.Context, tc domain.TrialClass) error {
 			assert.Equal(t, int64(6), tc.AvailableSlots)
+			return nil
+		})
+		mockRepo.EXPECT().Update(ctx, gomock.Any()).DoAndReturn(func(ctx context.Context, p domain.PaymentAttempt) error {
+			assert.Equal(t, domain.PaymentAttemptStatusRefunded, p.Status)
 			return nil
 		})
 		mockBookingRepo.EXPECT().Update(ctx, gomock.Any()).DoAndReturn(func(ctx context.Context, b domain.Booking) error {
@@ -75,9 +81,11 @@ func TestPaymentAttemptService_Settlement(t *testing.T) {
 	t.Run("not pending", func(t *testing.T) {
 		booking := domain.Booking{ID: 1, TrialClassID: 1, Status: domain.BookingStatusConfirmed, HoldExpiredAt: time.Now().Add(1 * time.Hour)}
 		trialClass := domain.TrialClass{ID: 1, AvailableSlots: 5}
+		paymentAttempt := domain.PaymentAttempt{ID: 1, BookingID: 1, Status: domain.PaymentAttemptStatusSuccess}
 
 		mockBookingRepo.EXPECT().GetByPaymentCode(ctx, paymentCode).Return(booking, nil)
 		mockClassRepo.EXPECT().GetByID(ctx, booking.TrialClassID).Return(trialClass, nil)
+		mockRepo.EXPECT().GetByBookingID(ctx, booking.ID).Return(paymentAttempt, nil)
 
 		err := service.Settlement(ctx, paymentCode)
 		assert.EqualError(t, err, "booking is not pending")

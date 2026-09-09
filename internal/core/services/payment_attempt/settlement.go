@@ -23,6 +23,12 @@ func (s *paymentAttemptService) Settlement(ctx context.Context, paymentCode stri
 		return err
 	}
 
+	paymentAttempt, err := s.repo.GetByBookingID(ctx, booking.ID)
+	if err != nil {
+		log.ErrorCtx(ctx, "[service.paymentattempt.Settlement.GetByBookingID] failed get payment attempt", log.Field("booking", booking), log.Field("error", err))
+		return err
+	}
+
 	rollbackSlot := func(ctx context.Context) error {
 		return db.Do(ctx, func(ctx context.Context) error {
 			updateClassReq := domain.TrialClass{
@@ -32,8 +38,16 @@ func (s *paymentAttemptService) Settlement(ctx context.Context, paymentCode stri
 				AvailableSlots: trialClass.AvailableSlots + 1,
 			}
 			if err := s.repoClass.Update(ctx, updateClassReq); err != nil {
+				log.ErrorCtx(ctx, "[services.payment_attempt.rollback.Update] failed update trial class", log.Field("request", updateClassReq), log.Field("error", err))
 				return err
 			}
+
+			paymentAttempt.Status = domain.PaymentAttemptStatusRefunded
+			if err := s.repo.Update(ctx, paymentAttempt); err != nil {
+				log.ErrorCtx(ctx, "[services.payment_attempt.rollback.Update] failed update payment attempt", log.Field("request", paymentAttempt), log.Field("error", err))
+				return err
+			}
+
 			booking.Status = domain.BookingStatusCancelled
 			return s.repoBooking.Update(ctx, booking)
 		})
@@ -49,12 +63,6 @@ func (s *paymentAttemptService) Settlement(ctx context.Context, paymentCode stri
 
 	if booking.Status != domain.BookingStatusPending {
 		return errors.New("booking is not pending")
-	}
-
-	paymentAttempt, err := s.repo.GetByBookingID(ctx, booking.ID)
-	if err != nil {
-		log.ErrorCtx(ctx, "[service.paymentattempt.Settlement.GetByBookingID] failed get payment attempt", log.Field("booking", booking), log.Field("error", err))
-		return err
 	}
 
 	err = db.Do(ctx, func(ctx context.Context) error {
