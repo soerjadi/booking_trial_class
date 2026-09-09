@@ -10,4 +10,5 @@ import (
 type PaymentAttemptRepositoryInterface interface {
 	Create(ctx context.Context, request domain.PaymentAttempt) (domain.PaymentAttempt, error)
 	Update(ctx context.Context, request domain.PaymentAttempt) error
+	GetByBookingID(ctx context.Context, bookingID int64) (domain.PaymentAttempt, error)
 }

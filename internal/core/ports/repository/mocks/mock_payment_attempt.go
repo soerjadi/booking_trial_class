@@ -56,6 +56,21 @@ func (mr *MockPaymentAttemptRepositoryInterfaceMockRecorder) Create(ctx, request
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockPaymentAttemptRepositoryInterface)(nil).Create), ctx, request)
 }
 
+// GetByBookingID mocks base method.
+func (m *MockPaymentAttemptRepositoryInterface) GetByBookingID(ctx context.Context, bookingID int64) (domain.PaymentAttempt, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetByBookingID", ctx, bookingID)
+	ret0, _ := ret[0].(domain.PaymentAttempt)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetByBookingID indicates an expected call of GetByBookingID.
+func (mr *MockPaymentAttemptRepositoryInterfaceMockRecorder) GetByBookingID(ctx, bookingID any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByBookingID", reflect.TypeOf((*MockPaymentAttemptRepositoryInterface)(nil).GetByBookingID), ctx, bookingID)
+}
+
 // Update mocks base method.
 func (m *MockPaymentAttemptRepositoryInterface) Update(ctx context.Context, request domain.PaymentAttempt) error {
 	m.ctrl.T.Helper()
