@@ -12,6 +12,16 @@ type bookingService struct {
 	repoPayment repository.PaymentAttemptRepositoryInterface
 }
 
-func NewBookingService(repo repository.BookingRepositoryInterface) services.BookingServiceInterface {
-	return &bookingService{repo: repo}
+func NewBookingService(
+	repo repository.BookingRepositoryInterface,
+	repoClass repository.TrialClassRepositoryInterface,
+	repoStudent repository.StudentRepositoryInterface,
+	repoPayment repository.PaymentAttemptRepositoryInterface,
+) services.BookingServiceInterface {
+	return &bookingService{
+		repo:        repo,
+		repoClass:   repoClass,
+		repoStudent: repoStudent,
+		repoPayment: repoPayment,
+	}
 }
