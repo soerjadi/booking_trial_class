@@ -56,6 +56,36 @@ func (mr *MockTrialClassRepositoryInterfaceMockRecorder) Create(ctx, request any
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockTrialClassRepositoryInterface)(nil).Create), ctx, request)
 }
 
+// GetByID mocks base method.
+func (m *MockTrialClassRepositoryInterface) GetByID(ctx context.Context, id int64) (domain.TrialClass, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetByID", ctx, id)
+	ret0, _ := ret[0].(domain.TrialClass)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetByID indicates an expected call of GetByID.
+func (mr *MockTrialClassRepositoryInterfaceMockRecorder) GetByID(ctx, id any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByID", reflect.TypeOf((*MockTrialClassRepositoryInterface)(nil).GetByID), ctx, id)
+}
+
+// GetMember mocks base method.
+func (m *MockTrialClassRepositoryInterface) GetMember(ctx context.Context, idClass int64) ([]domain.TrialClassMember, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetMember", ctx, idClass)
+	ret0, _ := ret[0].([]domain.TrialClassMember)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetMember indicates an expected call of GetMember.
+func (mr *MockTrialClassRepositoryInterfaceMockRecorder) GetMember(ctx, idClass any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetMember", reflect.TypeOf((*MockTrialClassRepositoryInterface)(nil).GetMember), ctx, idClass)
+}
+
 // InsertMember mocks base method.
 func (m *MockTrialClassRepositoryInterface) InsertMember(ctx context.Context, request domain.TrialClassMember) error {
 	m.ctrl.T.Helper()

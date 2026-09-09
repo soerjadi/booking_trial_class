@@ -10,5 +10,7 @@ import (
 type TrialClassRepositoryInterface interface {
 	Create(ctx context.Context, request domain.TrialClass) (domain.TrialClass, error)
 	Update(ctx context.Context, request domain.TrialClass) error
+	GetByID(ctx context.Context, id int64) (domain.TrialClass, error)
 	InsertMember(ctx context.Context, request domain.TrialClassMember) error
+	GetMember(ctx context.Context, idClass int64) ([]domain.TrialClassMember, error)
 }
