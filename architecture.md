@@ -53,7 +53,7 @@ Database : PostgreSQL
     Get detail student
 - [x] GET /v1/students/:id/bookings.  
     Get list bookings base on student_id
-- [ ] POST /v1/booking.  
+- [x] POST /v1/booking.  
     Create booking class
 - [ ] POST /v1/payment/settlement.  
     Confirm payment

@@ -6,7 +6,10 @@ import (
 )
 
 type bookingService struct {
-	repo repository.BookingRepositoryInterface
+	repo        repository.BookingRepositoryInterface
+	repoClass   repository.TrialClassRepositoryInterface
+	repoStudent repository.StudentRepositoryInterface
+	repoPayment repository.PaymentAttemptRepositoryInterface
 }
 
 func NewBookingService(repo repository.BookingRepositoryInterface) services.BookingServiceInterface {

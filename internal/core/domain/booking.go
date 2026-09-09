@@ -22,8 +22,8 @@ type Booking struct {
 	UpdatedAt      time.Time     `json:"updated_at"`
 }
 
-type BookCLassRequest struct {
+type BookClassRequest struct {
 	TrialClassID   int64
 	StudentID      int64
-	IdempotencyKey int64
+	IdempotencyKey string
 }

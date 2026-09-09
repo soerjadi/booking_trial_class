@@ -56,16 +56,17 @@ func (mr *MockParentServiceInterfaceMockRecorder) Create(ctx, request any) *gomo
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockParentServiceInterface)(nil).Create), ctx, request)
 }
 
-// Update mocks base method.
-func (m *MockParentServiceInterface) Update(ctx context.Context, request domain.Parent) error {
+// GetByID mocks base method.
+func (m *MockParentServiceInterface) GetByID(ctx context.Context, id int64) (domain.Parent, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Update", ctx, request)
-	ret0, _ := ret[0].(error)
-	return ret0
+	ret := m.ctrl.Call(m, "GetByID", ctx, id)
+	ret0, _ := ret[0].(domain.Parent)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
-// Update indicates an expected call of Update.
-func (mr *MockParentServiceInterfaceMockRecorder) Update(ctx, request any) *gomock.Call {
+// GetByID indicates an expected call of GetByID.
+func (mr *MockParentServiceInterfaceMockRecorder) GetByID(ctx, id any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Update", reflect.TypeOf((*MockParentServiceInterface)(nil).Update), ctx, request)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByID", reflect.TypeOf((*MockParentServiceInterface)(nil).GetByID), ctx, id)
 }

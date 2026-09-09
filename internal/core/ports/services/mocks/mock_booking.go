@@ -42,7 +42,7 @@ func (m *MockBookingServiceInterface) EXPECT() *MockBookingServiceInterfaceMockR
 }
 
 // BookClass mocks base method.
-func (m *MockBookingServiceInterface) BookClass(ctx context.Context, request domain.BookCLassRequest) (domain.Booking, error) {
+func (m *MockBookingServiceInterface) BookClass(ctx context.Context, request domain.BookClassRequest) (domain.Booking, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "BookClass", ctx, request)
 	ret0, _ := ret[0].(domain.Booking)
@@ -54,6 +54,21 @@ func (m *MockBookingServiceInterface) BookClass(ctx context.Context, request dom
 func (mr *MockBookingServiceInterfaceMockRecorder) BookClass(ctx, request any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "BookClass", reflect.TypeOf((*MockBookingServiceInterface)(nil).BookClass), ctx, request)
+}
+
+// GetByStudentID mocks base method.
+func (m *MockBookingServiceInterface) GetByStudentID(ctx context.Context, studentID int64) ([]domain.Booking, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetByStudentID", ctx, studentID)
+	ret0, _ := ret[0].([]domain.Booking)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetByStudentID indicates an expected call of GetByStudentID.
+func (mr *MockBookingServiceInterfaceMockRecorder) GetByStudentID(ctx, studentID any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetByStudentID", reflect.TypeOf((*MockBookingServiceInterface)(nil).GetByStudentID), ctx, studentID)
 }
 
 // Update mocks base method.
