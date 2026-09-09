@@ -5,6 +5,7 @@ import (
 
 	log "github.com/oemahdev/logger"
 	"github.com/soerjadi/booking/internal/core/domain"
+	"github.com/soerjadi/booking/internal/infrastructure/db"
 )
 
 func (r *paymentAttemptRepository) Create(ctx context.Context, request domain.PaymentAttempt) (paymentAttempt domain.PaymentAttempt, err error) {
@@ -27,7 +28,7 @@ func (r *paymentAttemptRepository) Create(ctx context.Context, request domain.Pa
 		updated_at
 	`
 
-	err = r.db.QueryRow(ctx, query, request.BookingID, request.Status, request.Note).Scan(
+	err = db.QuerierFromContext(ctx, r.db).QueryRow(ctx, query, request.BookingID, request.Status, request.Note).Scan(
 		&paymentAttempt.ID, &paymentAttempt.BookingID, &paymentAttempt.Status, &paymentAttempt.Note, &paymentAttempt.CreatedAt, &paymentAttempt.UpdatedAt,
 	)
 	if err != nil {

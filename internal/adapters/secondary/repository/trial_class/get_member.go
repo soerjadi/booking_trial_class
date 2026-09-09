@@ -5,6 +5,7 @@ import (
 
 	log "github.com/oemahdev/logger"
 	"github.com/soerjadi/booking/internal/core/domain"
+	"github.com/soerjadi/booking/internal/infrastructure/db"
 )
 
 func (r *trialClassRepository) GetMember(ctx context.Context, idClass int64) ([]domain.TrialClassMember, error) {
@@ -14,7 +15,7 @@ func (r *trialClassRepository) GetMember(ctx context.Context, idClass int64) ([]
 		FROM trial_class_members 
 		WHERE trial_classes_id = $1
 	`
-	rows, err := r.db.Query(ctx, query, idClass)
+	rows, err := db.QuerierFromContext(ctx, r.db).Query(ctx, query, idClass)
 	if err != nil {
 		log.ErrorCtx(ctx, "[repository.trial_class.GetMember.Query] Failed get TrialClassMember", log.Field("idClass", idClass), log.Field("error", err))
 		return nil, err

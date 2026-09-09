@@ -5,6 +5,7 @@ import (
 
 	log "github.com/oemahdev/logger"
 	"github.com/soerjadi/booking/internal/core/domain"
+	"github.com/soerjadi/booking/internal/infrastructure/db"
 )
 
 func (r *paymentAttemptRepository) Update(ctx context.Context, request domain.PaymentAttempt) error {
@@ -21,7 +22,7 @@ func (r *paymentAttemptRepository) Update(ctx context.Context, request domain.Pa
 		id = $6
 	`
 
-	_, err := r.db.Exec(ctx, query, request.BookingID, request.Status, request.Note, request.CreatedAt, request.UpdatedAt, request.ID)
+	_, err := db.QuerierFromContext(ctx, r.db).Exec(ctx, query, request.BookingID, request.Status, request.Note, request.CreatedAt, request.UpdatedAt, request.ID)
 	if err != nil {
 		log.ErrorCtx(ctx, "[repository.payment_attempt.Update.Exec] Failed update PaymentAttempt", log.Field("request", request), log.Field("error", err))
 		return err

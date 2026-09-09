@@ -5,6 +5,7 @@ import (
 
 	log "github.com/oemahdev/logger"
 	"github.com/soerjadi/booking/internal/core/domain"
+	"github.com/soerjadi/booking/internal/infrastructure/db"
 )
 
 func (r *studentRepository) GetByID(ctx context.Context, id int64) (student domain.Student, err error) {
@@ -20,7 +21,7 @@ func (r *studentRepository) GetByID(ctx context.Context, id int64) (student doma
 	LIMIT 1
 	`
 
-	err = r.db.QueryRow(ctx, query, id).Scan(&student.ID, &student.Name, &student.ParentID)
+	err = db.QuerierFromContext(ctx, r.db).QueryRow(ctx, query, id).Scan(&student.ID, &student.Name, &student.ParentID)
 	if err != nil {
 		log.ErrorCtx(ctx, "[repository.student.GetByID] failed get student by id", log.Field("request", id), log.Field("error", err))
 		return domain.Student{}, err

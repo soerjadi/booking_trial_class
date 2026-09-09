@@ -5,6 +5,7 @@ import (
 
 	log "github.com/oemahdev/logger"
 	"github.com/soerjadi/booking/internal/core/domain"
+	"github.com/soerjadi/booking/internal/infrastructure/db"
 )
 
 func (r *trialClassRepository) Update(ctx context.Context, request domain.TrialClass) error {
@@ -19,7 +20,7 @@ func (r *trialClassRepository) Update(ctx context.Context, request domain.TrialC
 		id = $4
 	`
 
-	_, err := r.db.Exec(ctx, query, request.Name, request.Quota, request.AvailableSlots, request.ID)
+	_, err := db.QuerierFromContext(ctx, r.db).Exec(ctx, query, request.Name, request.Quota, request.AvailableSlots, request.ID)
 	if err != nil {
 		log.ErrorCtx(ctx, "[repository.trial_class.Update.Exec] Failed update TrialClass", log.Field("request", request), log.Field("error", err))
 		return err

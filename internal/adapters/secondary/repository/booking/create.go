@@ -5,6 +5,7 @@ import (
 
 	log "github.com/oemahdev/logger"
 	"github.com/soerjadi/booking/internal/core/domain"
+	"github.com/soerjadi/booking/internal/infrastructure/db"
 )
 
 func (r *bookingRepository) Create(ctx context.Context, request domain.Booking) (booking domain.Booking, err error) {
@@ -33,7 +34,7 @@ func (r *bookingRepository) Create(ctx context.Context, request domain.Booking) 
 		updated_at
 	`
 
-	err = r.db.QueryRow(ctx, query, request.TrialClassID, request.StudentID, request.Status, request.IdempotencyKey, request.HoldExpiredAt, request.PaymentCode).Scan(
+	err = db.QuerierFromContext(ctx, r.db).QueryRow(ctx, query, request.TrialClassID, request.StudentID, request.Status, request.IdempotencyKey, request.HoldExpiredAt, request.PaymentCode).Scan(
 		&booking.ID, &booking.TrialClassID, &booking.StudentID, &booking.Status, &booking.IdempotencyKey, &booking.HoldExpiredAt, &booking.PaymentCode, &booking.CreatedAt, &booking.UpdatedAt,
 	)
 	if err != nil {

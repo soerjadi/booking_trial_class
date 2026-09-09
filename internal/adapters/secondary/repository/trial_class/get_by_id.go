@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/soerjadi/booking/internal/core/domain"
+	"github.com/soerjadi/booking/internal/infrastructure/db"
 )
 
 func (r *trialClassRepository) GetByID(ctx context.Context, id int64) (domain.TrialClass, error) {
@@ -13,7 +14,7 @@ func (r *trialClassRepository) GetByID(ctx context.Context, id int64) (domain.Tr
 		FROM trial_classes 
 		WHERE id = $1
 	`
-	err := r.db.QueryRow(ctx, query, id).Scan(
+	err := db.QuerierFromContext(ctx, r.db).QueryRow(ctx, query, id).Scan(
 		&trialClass.ID,
 		&trialClass.Name,
 		&trialClass.Quota,

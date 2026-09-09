@@ -5,6 +5,7 @@ import (
 
 	log "github.com/oemahdev/logger"
 	"github.com/soerjadi/booking/internal/core/domain"
+	"github.com/soerjadi/booking/internal/infrastructure/db"
 )
 
 func (r *trialClassRepository) Create(ctx context.Context, request domain.TrialClass) (trialClass domain.TrialClass, err error) {
@@ -24,7 +25,7 @@ func (r *trialClassRepository) Create(ctx context.Context, request domain.TrialC
 		available_slots
 	`
 
-	err = r.db.QueryRow(ctx, query, request.Name, request.Quota, request.AvailableSlots).Scan(&trialClass.ID, &trialClass.Name, &trialClass.Quota, &trialClass.AvailableSlots)
+	err = db.QuerierFromContext(ctx, r.db).QueryRow(ctx, query, request.Name, request.Quota, request.AvailableSlots).Scan(&trialClass.ID, &trialClass.Name, &trialClass.Quota, &trialClass.AvailableSlots)
 	if err != nil {
 		log.ErrorCtx(ctx, "[repository.trial_class.Create.QueryRow] Failed create TrialClass", log.Field("request", request), log.Field("error", err))
 		return domain.TrialClass{}, err

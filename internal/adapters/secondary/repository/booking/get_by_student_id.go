@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/soerjadi/booking/internal/core/domain"
+	"github.com/soerjadi/booking/internal/infrastructure/db"
 )
 
 func (r *bookingRepository) GetByStudentID(ctx context.Context, studentID int64) ([]domain.Booking, error) {
@@ -13,7 +14,7 @@ func (r *bookingRepository) GetByStudentID(ctx context.Context, studentID int64)
 		FROM bookings 
 		WHERE student_id = $1
 	`
-	rows, err := r.db.Query(ctx, query, studentID)
+	rows, err := db.QuerierFromContext(ctx, r.db).Query(ctx, query, studentID)
 	if err != nil {
 		return nil, err
 	}

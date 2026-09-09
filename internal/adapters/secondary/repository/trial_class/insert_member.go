@@ -5,6 +5,7 @@ import (
 
 	log "github.com/oemahdev/logger"
 	"github.com/soerjadi/booking/internal/core/domain"
+	"github.com/soerjadi/booking/internal/infrastructure/db"
 )
 
 func (r *trialClassRepository) InsertMember(ctx context.Context, request domain.TrialClassMember) error {
@@ -18,7 +19,7 @@ func (r *trialClassRepository) InsertMember(ctx context.Context, request domain.
 		($1, $2)
 	`
 
-	_, err := r.db.Exec(ctx, query, request.TrialClassID, request.StudentID)
+	_, err := db.QuerierFromContext(ctx, r.db).Exec(ctx, query, request.TrialClassID, request.StudentID)
 	if err != nil {
 		log.ErrorCtx(ctx, "[repository.trial_class.InsertMember.Exec] Failed insert TrialClassMember", log.Field("request", request), log.Field("error", err))
 		return err

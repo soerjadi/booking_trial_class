@@ -5,6 +5,7 @@ import (
 
 	log "github.com/oemahdev/logger"
 	"github.com/soerjadi/booking/internal/core/domain"
+	"github.com/soerjadi/booking/internal/infrastructure/db"
 )
 
 func (r *bookingRepository) GetByPaymentCode(ctx context.Context, paymentCode string) (domain.Booking, error) {
@@ -14,7 +15,7 @@ func (r *bookingRepository) GetByPaymentCode(ctx context.Context, paymentCode st
 		FROM bookings 
 		WHERE payment_code = $1
 	`
-	err := r.db.QueryRow(ctx, query, paymentCode).Scan(
+	err := db.QuerierFromContext(ctx, r.db).QueryRow(ctx, query, paymentCode).Scan(
 		&b.ID,
 		&b.TrialClassID,
 		&b.StudentID,

@@ -5,6 +5,7 @@ import (
 
 	log "github.com/oemahdev/logger"
 	"github.com/soerjadi/booking/internal/core/domain"
+	"github.com/soerjadi/booking/internal/infrastructure/db"
 )
 
 func (r *paymentAttemptRepository) GetByBookingID(ctx context.Context, bookingID int64) (domain.PaymentAttempt, error) {
@@ -14,7 +15,7 @@ func (r *paymentAttemptRepository) GetByBookingID(ctx context.Context, bookingID
 		FROM payment_attempts 
 		WHERE booking_id = $1
 	`
-	err := r.db.QueryRow(ctx, query, bookingID).Scan(
+	err := db.QuerierFromContext(ctx, r.db).QueryRow(ctx, query, bookingID).Scan(
 		&pa.ID, &pa.BookingID, &pa.Status, &pa.Note, &pa.CreatedAt, &pa.UpdatedAt,
 	)
 	if err != nil {
