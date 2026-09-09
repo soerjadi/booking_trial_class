@@ -10,4 +10,5 @@ import (
 type BookingServiceInterface interface {
 	BookClass(ctx context.Context, request domain.BookCLassRequest) (domain.Booking, error)
 	Update(ctx context.Context, request domain.Booking) error
+	GetByStudentID(ctx context.Context, studentID int64) ([]domain.Booking, error)
 }

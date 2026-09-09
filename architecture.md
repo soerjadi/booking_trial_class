@@ -51,7 +51,7 @@ Database : PostgreSQL
     Create student
 - [x] GET /v1/students/:id.  
     Get detail student
-- [ ] GET /v1/students/:id/bookings.  
+- [x] GET /v1/students/:id/bookings.  
     Get list bookings base on student_id
 - [ ] POST /v1/booking.  
     Create booking class
