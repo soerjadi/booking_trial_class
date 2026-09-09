@@ -6,3 +6,7 @@ type TrialClass struct {
 	Quota          int64  `json:"quota"`
 	AvailableSlots int64  `json:"available_slots"`
 }
+
+type CreateTrialClassRequest struct {
+	Name string `json:"name" validate:"required"`
+}

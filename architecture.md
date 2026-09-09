@@ -41,21 +41,21 @@ Database : PostgreSQL
     - updated_at
 
 ## API Endpoint
-- POST /v1/trial_class.  
+- [x] POST /v1/trial_class.  
     Create trial_class
-- POST /v1/parents   
+- [x] POST /v1/parents   
     Create parent
-- GET /v1/parents/:id.  
+- [x] GET /v1/parents/:id.  
     Get detail parent
-- POST /v1/students.  
+- [x] POST /v1/students.  
     Create student
-- GET /v1/students/:id.  
+- [x] GET /v1/students/:id.  
     Get detail student
-- GET /v1/students/:id/bookings.  
+- [ ] GET /v1/students/:id/bookings.  
     Get list bookings base on student_id
-- POST /v1/booking.  
+- [ ] POST /v1/booking.  
     Create booking class
-- POST /v1/payment/settlement.  
+- [ ] POST /v1/payment/settlement.  
     Confirm payment
 
 
