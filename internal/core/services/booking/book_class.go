@@ -7,6 +7,7 @@ import (
 	"math/big"
 	"time"
 
+	"github.com/jackc/pgx/v5"
 	log "github.com/oemahdev/logger"
 	"github.com/soerjadi/booking/internal/core/domain"
 	"github.com/soerjadi/booking/internal/infrastructure/db"
@@ -44,7 +45,7 @@ func (s *bookingService) BookClass(ctx context.Context, request domain.BookClass
 	g.Go(func() error {
 		var err error
 		classMembers, err = s.repoClass.GetMember(gCtx, request.TrialClassID)
-		if err != nil {
+		if err != nil && err != pgx.ErrNoRows {
 			log.ErrorCtx(gCtx, "[service.booking.BookClass.GetMember] failed get class members", log.Field("trialClassID", request.TrialClassID), log.Field("error", err))
 		}
 		return err
@@ -63,9 +64,11 @@ func (s *bookingService) BookClass(ctx context.Context, request domain.BookClass
 
 	// check if student already register in this class
 	// *since this was only capped 4, using iteration wont consume much memory
-	for _, member := range classMembers {
-		if member.StudentID == student.ID {
-			return domain.Booking{}, errors.New("student already register in this class")
+	if len(classMembers) > 0 {
+		for _, member := range classMembers {
+			if member.StudentID == student.ID {
+				return domain.Booking{}, errors.New("student already register in this class")
+			}
 		}
 	}
 
