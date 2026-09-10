@@ -1,6 +1,6 @@
 # Trial Booking System
 
-A Go/PostgreSQL service for booking trial classes: a parent registers a student, the student books a seat in a trial class, and the seat is only confirmed once payment settles.
+A Go/PostgreSQL service for booking trial classes: a parent registers a student, the student books a seat in a trial class, and the seat is only confirmed once payment settles. This project structure based on [Scafolding Hexagonal Architecture in Go](https://soerja.medium.com/scaffolding-hexagonal-architecture-in-go-using-giter8-15e9ff3466ed).
 
 ## Data Model
 
