@@ -129,3 +129,9 @@ sequenceDiagram
 
     Booking->>+Alice: Booking confirmed
 ```
+
+## Copyright
+
+© 2026 All rights reserved.
+
+Last updated: 2026-10-07T02:41:51.561Z
