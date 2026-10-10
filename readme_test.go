@@ -12,10 +12,10 @@ func TestReadmeCopyrightNotice(t *testing.T) {
 		t.Fatalf("read README.md: %v", err)
 	}
 	s := string(b)
-	if !strings.Contains(s, "*This README was updated by an AI agent on 2026-10-10T01:56:00.000Z.*") {
+	if !strings.Contains(s, "*This README was updated by an AI agent on 2026-10-10T07:53:04.000Z.*") {
 		t.Fatalf("copyright notice not found")
 	}
-	if !strings.HasSuffix(strings.TrimSpace(s), "*This README was updated by an AI agent on 2026-10-10T01:56:00.000Z.*") {
+	if !strings.HasSuffix(strings.TrimSpace(s), "*This README was updated by an AI agent on 2026-10-10T07:53:04.000Z.*") {
 		t.Fatalf("copyright notice not at end of file")
 	}
 	if !strings.Contains(s, "---\n\n*This README") {
