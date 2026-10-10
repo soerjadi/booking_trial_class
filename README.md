@@ -100,4 +100,4 @@ See [architecture.md](architecture.md) for the sequence diagrams (happy path and
 
 ---
 
-*This README was updated by an AI agent on 2026-10-04T14:41:01.808Z.*
+*This README was updated by an AI agent on 2026-10-10T01:56:00.000Z.*
