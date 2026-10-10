@@ -97,3 +97,7 @@ Every repository write and read now goes through [`db.QuerierFromContext(ctx, r.
 ### Flow Diagrams
 
 See [architecture.md](architecture.md) for the sequence diagrams (happy path and last-seat race) this design is based on.
+
+---
+
+*This README was updated by an AI agent on 2026-10-10T07:53:04.000Z.*
